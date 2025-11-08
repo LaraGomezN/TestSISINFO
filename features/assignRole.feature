@@ -2,7 +2,7 @@ Feature: My feature
 
 @user1@web
 Scenario: Assign roles for each user
-  When I login with "admin@admin.com" and "admin"
+  Given I login with "admin@admin.com" and "admin"
   When I go to Roles section
   When I search for user "Natalia Franco Tamara"
   When I click in role assign

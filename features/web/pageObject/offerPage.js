@@ -38,22 +38,17 @@ class OfferPage {
     }
 
     async publishAsistencia() {
-        // Clic 1: Botón "Publicar asistencia" en el formulario.
         const btnPublicar = await this.driver.$('//button[contains(.,"Publicar asistencia")]');
         await btnPublicar.waitForDisplayed({ timeout: 10000 });
         await btnPublicar.click();
         await this.driver.pause(1000); 
 
-        // Clic 2: Botón "Publicar asistencia" en el modal de CONFIRMACIÓN.
-        // 🚨 SELECTOR EXCLUSIVO: Busca el botón con el texto 'Publicar asistencia' dentro del footer del alertdialog.
         const btnAceptarModal = await this.driver.$('//div[@data-slot="alert-dialog-footer"]//button[normalize-space(.)="Publicar asistencia"]'); 
         await btnAceptarModal.waitForDisplayed({ timeout: 10000 });
         await btnAceptarModal.click();
         
         await this.driver.pause(3000); // Espera a que el modal de ÉXITO aparezca
 
-        // Clic 3: Botón "Aceptar" en el modal de ÉXITO.
-        // Asumimos que el modal de éxito también es un alertdialog/dialog con un botón 'Aceptar'.
         const btnAceptarExito = await this.driver.$('//button[normalize-space(.)="Aceptar"]'); 
         await btnAceptarExito.waitForDisplayed({ timeout: 15000, interval: 500 }); 
         await btnAceptarExito.click();
