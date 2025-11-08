@@ -2,6 +2,9 @@ const { Given,When,Then} = require('@cucumber/cucumber');
 const LoginPage = require('../pageObject/loginPage');
 const RolesPage = require('../pageObject/rolesPage');
 const ProyectosPage = require('../pageObject/proyectosGradoPage');
+const LogOutPage = require('../pageObject/logoutPage');
+
+
 //Login steps
 When('I login with {string} and {string}', async function (username, password) {
     const loginPage = new LoginPage(this.driver);
@@ -78,3 +81,32 @@ When ('I go to Crear Tema de Proyecto section', async function () {
     const proyectosPage = new ProyectosPage(this.driver);
     await proyectosPage.goToCrearTemaProyecto();
 }   );
+
+
+//LogOut Page
+
+When('I log out', async function () {
+    const logoutPage = new LogOutPage(this.driver);
+    await logoutPage.openProfileMenu();
+    await logoutPage.clickLogout();
+});
+
+
+When('I click on the Coordinador tab', async function () {
+    const logoutPage = new LogOutPage(this.driver);
+    await logoutPage.clickCoordinadorTab();
+});
+
+
+When('I click on the Profesor tab', async function () {
+    const logoutPage = new LogOutPage(this.driver);
+    await logoutPage.clickProfesorTab();
+});
+
+
+When('I click on Consultar programas de clases', async function () {
+    const logoutPage = new LogOutPage(this.driver);
+    await logoutPage.clickConsultarProgramas();
+});
+
+
