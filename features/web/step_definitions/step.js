@@ -3,6 +3,10 @@ const LoginPage = require('../pageObject/loginPage');
 const RolesPage = require('../pageObject/rolesPage');
 const ProyectosPage = require('../pageObject/proyectosGradoPage');
 const LogOutPage = require('../pageObject/logoutPage');
+const TeacherPage = require('../pageObject/teacherPage');
+const OfferPage = require('../pageObject/offerPage');
+
+
 //Login steps
 When('I login with {string} and {string}', async function (username, password) {
     const loginPage = new LoginPage(this.driver);
@@ -112,5 +116,20 @@ When ('I create a new Proyecto de Grado called {string}', async function (titulo
     await proyectosPage.crearProyecto(titulo);
 }   );
 
+When('I click on Asistencias graduadas', async function () {
+    const teacherPage = new TeacherPage(this.driver);
+    await teacherPage.clickAsistenciasGraduadas();
+});
 
+When('I click on Crear oferta', async function () {
+    const teacherPage = new TeacherPage(this.driver);
+    await teacherPage.clickCrearOferta();
+});
 
+When(
+  'I fill the offer with name {string}, description {string} and requirement {string}',
+  async function (nombre, descripcion, requisito) {
+    const offerPage = new OfferPage(this.driver);
+    await offerPage.crearOfertaCompleta(nombre, descripcion, requisito);
+  }
+);
