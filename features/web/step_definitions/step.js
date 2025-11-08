@@ -70,7 +70,11 @@ When ('I clear search input', async function () {
 
 //Proyectos steps
 
-
+When ('I go to Proyectos de Grado section student', async function () { 
+    const proyectosPage = new ProyectosPage(this.driver);
+    await proyectosPage.goToProyectosDeGrado();
+    await proyectosPage.goToConsultarProyectos();
+});
 
 
 When ('I go to Proyectos de Grado section', async function () { 
@@ -111,9 +115,15 @@ When('I click on Consultar programas de clases', async function () {
     await logoutPage.clickConsultarProgramas();
 });
 
-When ('I create a new Proyecto de Grado called {string}', async function (titulo) { 
+When ('I create a new Proyecto de Grado called {string} with description {string}', async function (titulo, descripcion) { 
     const proyectosPage = new ProyectosPage(this.driver);
-    await proyectosPage.crearProyecto(titulo);
+    await proyectosPage.crearProyecto(titulo, descripcion);
+}   );
+
+
+When ('I check the admin proyects and check if exist the project {string}', async function (name) { 
+    const proyectosPage = new ProyectosPage(this.driver);
+    await proyectosPage.adminProyects(name);
 }   );
 
 When('I click on Asistencias graduadas', async function () {
