@@ -5,10 +5,11 @@ const ProyectosPage = require('../pageObject/proyectosGradoPage');
 const LogOutPage = require('../pageObject/logoutPage');
 const TeacherPage = require('../pageObject/teacherPage');
 const OfferPage = require('../pageObject/offerPage');
+const IncidentPage = require('../pageObject/incidentPage');
 
 
 //Login steps
-When('I login with {string} and {string}', async function (username, password) {
+Given('I login with {string} and {string}', async function (username, password) {
     const loginPage = new LoginPage(this.driver);
     await loginPage.open();
     await loginPage.login(username, password);
@@ -110,7 +111,7 @@ When('I click on the Profesor tab', async function () {
 });
 
 
-When('I click on Consultar programas de clases', async function () {
+Then('I click on Consultar programas de clases', async function () {
     const logoutPage = new LogOutPage(this.driver);
     await logoutPage.clickConsultarProgramas();
 });
@@ -121,7 +122,7 @@ When ('I create a new Proyecto de Grado called {string} with description {string
 }   );
 
 
-When ('I check the admin proyects and check if exist the project {string}', async function (name) { 
+Then ('I check the admin proyects and check if exist the project {string}', async function (name) { 
     const proyectosPage = new ProyectosPage(this.driver);
     await proyectosPage.adminProyects(name);
 }   );
@@ -143,3 +144,31 @@ When(
     await offerPage.crearOfertaCompleta(nombre, descripcion, requisito);
   }
 );
+
+//Incident Page steps
+
+
+When('I click on incident page', async function () {
+    const incidentPage = new IncidentPage(this.driver);
+    await incidentPage.goToIncidentPage();
+});
+
+
+When('I fill the incident form with the following description {string}', async function (description) {
+    const incidentPage = new IncidentPage(this.driver);
+    await incidentPage.fillIncident(description);
+});
+When('I publish the incident', async function () {
+    const incidentPage = new IncidentPage(this.driver);
+    await incidentPage.publishIncident();
+});
+
+When('I go to administracion incidents page', async function () {
+    const incidentPage = new IncidentPage(this.driver);
+    await incidentPage.goToAdministracionIncidents();
+});
+
+Then('I check the incident with description {string}', async function (description) {
+    const incidentPage = new IncidentPage(this.driver);
+    await incidentPage.verifyTheIncidentCreated(description);
+});

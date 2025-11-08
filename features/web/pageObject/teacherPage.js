@@ -11,9 +11,9 @@ class TeacherPage {
     }
 
     async clickCrearOferta() {
-        const crearOferta = await this.driver.$('//a[.//span[normalize-space()="Crear oferta"]]');
-        await crearOferta.waitForDisplayed({ timeout: 10000 });
+        const crearOferta = await this.driver.$('//a[normalize-space()="Crear oferta"]');
         await crearOferta.click();
+        
         await this.driver.pause(1000);
     }
 }
