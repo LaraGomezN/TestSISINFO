@@ -10,8 +10,22 @@ class RolesPage {
     get checkProfesorRole(){return this.driver.$('span=Profesor');}
     get coordinadorRole() { return this.driver.$('//div[@role="menuitemcheckbox" and contains(., "Coordinador")]'); }
     get checkCoordinadorRole(){return this.driver.$('span=Coordinador');}
+    get titleProyectoGrado(){ return this.driver.$('input[name="title"]');}
+    get detailDescriptionProyectoGrado(){return this.driver.$('textarea[placeholder="Describe los objetivos, metodología y alcance del proyecto..."]') }
+    get categoryOptions(){ return this.driver.$('//button[@role="combobox"][.//span[contains(text(), "Selecciona una categoría")]]');}
+    get typeOfCategories(){return this.driver.$('div[data-radix-popper-content-wrapper]'); }
+    get tagOptions(){ return this.driver.$('//button[@role="combobox" and .//span[contains(text(),"Agregar etiqueta")]]'); }
+    get typeOfTags(){ return this.driver.$('.//div[normalize-space()="Inteligencia artificial"]'); }
+    get publishProyect(){return this.driver.$('//button[normalize-space()="Publicar Proyecto"]'); }
+    get confirmPublishProyect() {return this.driver.$('//div[@data-slot="alert-dialog-content" and @data-state="open"]//button[normalize-space()="Publicar Proyecto"]');}
+    get btnAceptar() {return this.driver.$('//button[normalize-space()="Aceptar"]');}
+    
 
-    get btnPanelProyectoGrado() {return this.driver.$('button=Proyecto de Grado');}
+
+
+    get btnPanelProyectoGrado() {
+  return this.driver.$('//button[.//span[contains(translate(text(),"ABCDEFGHIJKLMNOPQRSTUVWXYZÁÉÍÓÚ","abcdefghijklmnopqrstuvwxyzáéíóú"),"proyecto de grado")]]');
+}
     get btnConsultarPublicarProyectos() {return this.driver.$('a=Publicar y consultar proyectos de pregrado');}
     get btnCrearTemaProyecto() {return this.driver.$('button=Crear tema');}
 
@@ -74,6 +88,27 @@ async checkCoordinadorRoleAssigned() {
     async goToCrearTemaProyecto(){
         await (await this.btnCrearTemaProyecto).click();
         await this.driver.pause(2000);
+    }
+
+    async crearProyecto(titulo) {
+        await (await this.titleProyectoGrado).setValue(titulo);
+        await this.driver.pause(2000);
+        await (await this.categoryOptions).click();  
+        await this.driver.pause(2000);
+        await (await this.typeOfCategories).click();
+        await (await this.tagOptions).click();
+        await this.driver.pause(2000);
+        await (await this.typeOfTags).click();
+        await this.driver.pause(2000);
+        await (await this.detailDescriptionProyectoGrado).setValue("Este es un proyecto de prueba automatizado.");
+        await this.driver.pause(2000);
+        await (await this.publishProyect).click();
+        await this.driver.pause(2000);
+        await (await this.confirmPublishProyect).click();
+        await this.driver.pause(2000);
+        await (await this.btnAceptar).click();
+        await this.driver.pause(2000);
+
     }
     
 }
