@@ -3,8 +3,6 @@ const LoginPage = require('../pageObject/loginPage');
 const RolesPage = require('../pageObject/rolesPage');
 const ProyectosPage = require('../pageObject/proyectosGradoPage');
 const LogOutPage = require('../pageObject/logoutPage');
-
-
 //Login steps
 When('I login with {string} and {string}', async function (username, password) {
     const loginPage = new LoginPage(this.driver);
@@ -108,5 +106,11 @@ When('I click on Consultar programas de clases', async function () {
     const logoutPage = new LogOutPage(this.driver);
     await logoutPage.clickConsultarProgramas();
 });
+
+When ('I create a new Proyecto de Grado called {string}', async function (titulo) { 
+    const proyectosPage = new ProyectosPage(this.driver);
+    await proyectosPage.crearProyecto(titulo);
+}   );
+
 
 
